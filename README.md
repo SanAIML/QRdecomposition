@@ -23,51 +23,38 @@ To implement QR decomposition algorithm using the Gram-Schmidt method.
 
 ## Program:
 ```
-'''
-# 1-norm
-Program to find 1-norm of a matrix.
+''' 
+Program to QR decomposition using the Gram-Schmidt method
 Developed by: Sanchita Sandeep
 RegisterNumber: 212224240142
 '''
 import numpy as np
-mat = np.array(eval(input()))
-ans = np.linalg.norm(mat,1)
-Norm_of_matrix="{:.2f}".format(ans)
-print(Norm_of_matrix)
-
-#2-norm
-'''
-Program to find 2-norm of a matrix.
-Developed by: Sanchita Sandeep
-RegisterNumber: 212224240142
-'''
-import numpy as np
-mat = np.array(eval(input()))
-ans = np.linalg.norm(mat,2)
-Norm_of_matrix="{:.2f}".format(ans)
-print(Norm_of_matrix)
-
-#Infinity norm of matrix
-'''
-Program to find Infinity of a matrix.
-Developed by: Sanchita Sandeep
-RegisterNumber: 212224240142
-'''
-import numpy as np
-mat = np.array(eval(input()))
-ans = np.linalg.norm(mat,np.inf)
-print("{:.2f}".format(ans))
-
+def QR_Decomposition(A):
+    n,m=A.shape
+    Q=np.empty((n,n))
+    u=np.empty((n,n))
+    u[:,0] = A[:,0]
+    Q[:,0] = A[:,0]/np.linalg.norm(u[:,0])
+    for i in range(1,n):
+        u[:,i] = A[:,i]
+        for j in range(i):
+            u[:,i]-=(A[:,i] @ Q[:,j])*Q[:,j]
+        Q[:,i] = u[:,i]/np.linalg.norm(u[:,i])
+    R = np.zeros((n,m))
+    for i in range(n):
+        for j in range(i,n):
+            R[i,j]=A[:,j] @ Q[:,i]
+    print("The Q Matrix is\n",Q)
+    print("The R Matrix is \n",R)
+    
+a = np.array(eval(input()))
+QR_Decomposition(a)
 ```
-
 
 ## Output
 
-![Screenshot 2025-04-22 111517](https://github.com/user-attachments/assets/538f0d19-8228-412a-a14e-ec25bd16126e)
-![Screenshot 2025-04-22 111638](https://github.com/user-attachments/assets/f07555e7-c748-4b60-b057-32af572c0787)
-![Screenshot 2025-04-22 111805](https://github.com/user-attachments/assets/dea59b00-bb07-4744-ae5b-5ddafaa24231)
 
-
+![Screenshot 2025-04-22 112712](https://github.com/user-attachments/assets/bdb07fb9-ef54-45ae-8807-8ca0825ab467)
 
 
 
